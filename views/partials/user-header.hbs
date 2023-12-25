@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Your Page Title</title>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">PRE-PACK </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Products <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">Cart<span class="badge badge-success" id="cart-count">{{cartCount}}</span></a>
+                    </li>
+                    {{#if user}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Orders</a>
+                    </li>
+                    {{/if}}
+                </ul>
+
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{#if user}}
+                        {{user.name}}
+                        {{else}}
+                        Account
+                        {{/if}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {{#if user}}
+                        <a class="dropdown-item" href="/logout">Log Out</a>
+                        {{else}}
+                        <a class="dropdown-item" href="/ulogin">Login</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+ 
+    {{!-- <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        
+        <span class="ml-3 text-xl"> PRE-PACK</span>
+        </a>
+        <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        {{!-- <a class="mr-5 hover:text-gray-900">Products</a>
+        <a class="mr-5 hover:text-gray-900">Cart </a>
+        {{if user}}
+        <a class="mr-5 hover:text-gray-900">Orders</a>
+        {{/if}} --}}
+        
+                    {{!-- <a class="mr-5 hover:text-gray-900" href="/">Home <span class="sr-only">(curren</span></a>
+                        <a class="mr-5 hover:text-gray-900" href="/">Products <span class="sr-only">(current)</span></a>
+                    
+                    
+                        <a class="mr-5 hover:text-gray-900" href="/cart">Cart<span class="badge badge-success" id="cart-count">{{cartCount}}</span></a>
+                
+                    {{#if user}}
+                    
+                        <a class="mr-5 hover:text-gray-900" href="#">Orders</a>
+                
+                    {{/if}}
+
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{#if user}}
+                        {{user.name}}
+                        {{else}}
+                        Account
+                        {{/if}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {{#if user}}
+                    <a class="dropdown-item" href="/logout">Log Out</a>
+                        {{else}}
+                    <a class="dropdown-item" href="/ulogin">Login</a>
+                        {{/if}}
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+    </div>
+    </header> --}} 

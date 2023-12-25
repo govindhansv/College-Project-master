@@ -1,0 +1,131 @@
+{{!-- <section>
+<div class="container mt-4">
+    <h2 class="center">EDIT PRODUCT</h2>
+    <form action="/owner/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
+        <label for="product_name">Product Name:</label><br>
+        <input type="text" id="product_name" name="name" required class="form-control"  value="{{product.name}}"><br><br>
+
+        <label for="category">Category:</label><br>
+        <select id="category" name="category" class="form-control"  value="{{product.category}}">
+            <option value="vegetables">Vegetables</option>
+            <option value="fruits">Fruits</option>
+            <option value="powders_and_spices">Powders and Spices</option>
+            <option value="bakery">Bakery</option>
+        </select><br><br>
+
+        <label for="Price" >Price:</label><br>
+       <!-- <label for="description" >Description:</label><br>
+        <input type="text" id="description" name="description" class="form-control" value="Rs.{{product.description}}" ><br><br>-->
+        <input type="number" id="Price" name="Price" class="form-control" value="Rs.{{product.Price}}" ><br><br>
+
+        <label for="quantity">Quantity:</label><br>
+        <input type="number" id="quantity" name="quantity" min="1" class="form-control" required value="{{product.quantity}}"><br><br>
+        <label for="image">Image:</label><br>
+        <img src="/product-image/{{product._id}}.jpg" style="width:100px;height:auto;" id="imgview">
+        <input type="file" id="image" name="image" class="form-control" onchange="viewImage(event)"><br><br>
+
+       <button type="submit" class="btn btn-success mt-4">SUBMIT</button>
+       <button type="reset" class="btn btn-danger ml-3 mt-4">RESET</button>
+    </form>
+</div>
+</section>
+<script>
+    function viewImage('event')
+    document.getElementById('imgview').src=URL.createObjectURL(event.target.files[0]){
+
+    }
+</script> --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Add custom styles here */
+    body {
+      background-color: #f8f9fa; /* Light background color */
+      padding-top: 20px;
+    }
+    .container {
+      background-color: #ffffff; /* White container background */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2.center {
+      text-align: center;
+      color: #007bff; /* Blue primary color */
+    }
+    label {
+      color: #495057; /* Dark text color */
+    }
+    .form-control {
+      border-color: #ced4da; /* Light grey border color */
+    }
+    .form-control:focus {
+      border-color: #007bff; /* Focus border color */
+    }
+    .btn-success {
+      background-color: #28a745; /* Green success color */
+      border-color: #28a745;
+    }
+    .btn-success:hover {
+      background-color: #218838; /* Darker green on hover */
+      border-color: #1e7e34;
+    }
+    .btn-danger {
+      background-color: #dc3545; /* Red danger color */
+      border-color: #dc3545;
+    }
+    .btn-danger:hover {
+      background-color: #c82333; /* Darker red on hover */
+      border-color: #bd2130;
+    }
+  </style>
+  <title>Your Page Title</title>
+</head>
+<body>
+
+<section>
+  <div class="container mt-4">
+    <h2 class="center">EDIT PRODUCT</h2>
+    <form action="/owner/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
+      <label for="product_name">Product Name:</label><br>
+      <input type="text" id="product_name" name="name" required class="form-control" value="{{product.name}}"><br><br>
+
+      <label for="category">Category:</label><br>
+      <select id="category" name="category" class="form-control" value="{{product.category}}">
+        <option value="vegetables">Vegetables</option>
+        <option value="fruits">Fruits</option>
+        <option value="powders_and_spices">Powders and Spices</option>
+        <option value="bakery">Bakery</option>
+      </select><br><br>
+
+      <label for="Price">Price:</label><br>
+      <input type="number" id="Price" name="Price" class="form-control" value="{{product.Price}}"><br><br>
+
+      <label for="quantity">Quantity:</label><br>
+      <input type="number" id="quantity" name="quantity" min="1" class="form-control" required value="{{product.quantity}}"><br><br>
+
+      <label for="image">Image:</label><br>
+      <img src="/product-image/{{product._id}}.jpg" style="width:100px;height:auto;" id="imgview">
+      <input type="file" id="image" name="image" class="form-control" onchange="viewImage(event)"><br><br>
+
+      <button type="submit" class="btn btn-success mt-4">SUBMIT</button>
+      <button type="reset" class="btn btn-danger ml-3 mt-4">RESET</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  function viewImage(event) {
+    document.getElementById('imgview').src = URL.createObjectURL(event.target.files[0]);
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

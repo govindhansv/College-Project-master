@@ -1,0 +1,192 @@
+{{!-- <section>
+    <div class="container">
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                
+                <tr>
+                    
+                    <td>
+                        <img style="width:50px;height:50px;"src="/product-image/{{this.product._id}}.jpg">
+                    </td>
+                    <td>{{this.product.name}}</td>
+                    <td>Rs.{{this.product.Price}}</td>
+                    
+                    <td>
+                        <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
+                        <span id="{{this.product._id}}">{{this.quantity}}</span>
+                        <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
+                    </td>
+                    <td>
+                        <!--<a href="" class="btn btn-danger">Remove</a>-->
+                        <button class="btn btn-danger" onclick="RemoveItem('{{this._id}}','{{this.product._id}}')" >Remove</button>
+                    </td>
+                </tr>
+                
+                {{/each}}
+             
+            </tbody>
+        </table>
+        <hr>
+        <div class="float-right pr-5">
+        <h3 class="float-right mr-5 mt-4">Total:<span id="total">{{totalValue}}Rs</span></h3>
+        <a href="/place-order" class="float-right mr-5 mt-3 btn btn-success" style="width:40%">Place Order</a>
+    </div></div>
+</section>--}}
+
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    /* Add custom styles here */
+    body {
+      background-color: #f8f9fa; /* Light background color */
+      padding-top: 20px;
+    }
+    .container {
+      margin-top: 30px;
+    }
+    .table {
+      background-color: #ffffff; /* White table background */
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      text-align: center;
+    }
+    img {
+      max-width: 50px;
+      max-height: 50px;
+      border-radius: 5px;
+    }
+    .cart-item-count {
+      font-size: 1.2rem;
+      padding: 5px 10px;
+      background-color: #007bff; /* Blue color */
+      color: #ffffff; /* White text color */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cart-item-count:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+    .btn-danger {
+      background-color: #dc3545; /* Red color */
+      border-color: #dc3545;
+    }
+    .btn-danger:hover {
+      background-color: #c82333; /* Darker red on hover */
+      border-color: #bd2130;
+    }
+    .btn-success {
+      background-color: #28a745; /* Green color */
+      border-color: #28a745;
+    }
+    .btn-success:hover {
+      background-color: #218838; /* Darker green on hover */
+      border-color: #1e7e34;
+    }
+  </style>
+  <title>Your Page Title</title>
+</head>
+<body>
+
+<section>
+  <div class="container">
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Title</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+        <tr>
+          <td>
+            <img src="/product-image/{{this.product._id}}.jpg" alt="Product Image">
+          </td>
+          <td>{{this.product.name}}</td>
+          <td>Rs.{{this.product.Price}}</td>
+          <td>
+            <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
+            <span id="{{this.product._id}}">{{this.quantity}}</span>
+            <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" onclick="RemoveItem('{{this._id}}','{{this.product._id}}')">Remove</button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <hr>
+    <div class="float-right pr-5">
+      <h3 class="float-right mr-5 mt-4">Total: <span id="total">{{totalValue}}Rs</span></h3>
+      <a href="/place-order" class="float-right mr-5 mt-3 btn btn-success" style="width:40%">Place Order</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  function changeQuantity(cartId, proId, userId, count) {
+    let quantity = parseInt(document.getElementById(proId).innerHTML)
+    count = parseInt(count)
+    $.ajax({
+      url: '/change-product-quantity',
+      data: {
+        user: userId,
+        cart: cartId,
+        product: proId,
+        count: count,
+        quantity: quantity
+      },
+      method: 'post',
+      success: function (response) {
+        if (response.removeProduct) {
+          alert("Product removed from cart")
+          location.reload()
+        } else {
+          document.getElementById(proId).innerHTML = quantity + count
+          document.getElementById('total').innerHTML = response.total
+        }
+      }
+    })
+  }
+
+  function RemoveItem(cartId, proId) {
+    $.ajax({
+      url: '/remove-cart-product',
+      data: {
+        cart: cartId,
+        product: proId,
+      },
+      method: 'post',
+      success: function (response) {
+        alert("Product removed from cart")
+        location.reload()
+      }
+    })
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<section>
+<div class="container mt-4">
+    <h2 class="center">ADD PRODUCTS</h2>
+    <form action="/owner/add-product" method="POST" enctype="multipart/form-data">
+        <label for="product_name">Product Name:</label><br>
+        <input type="text" id="product_name" name="name" required class="form-control" ><br><br>
+
+        <label for="category">Category:</label><br>
+        <select id="category" name="category" class="form-control">
+            <option value="vegetables">Vegetables</option>
+            <option value="fruits">Fruits</option>
+            <option value="powders_and_spices">Powders and Spices</option>
+            <option value="bakery">Bakery</option>
+        </select><br><br>
+
+        <label for="Price">Price:</label><br>
+        <input type="number" id="Price" name="Price" class="form-control" ><br><br>
+       <!-- <label for="description">Description:</label><br>
+        <input type="text" id="description" name="description" class="form-control" ><br><br>-->
+
+        <label for="quantity">Quantity:</label><br>
+        <input type="number" id="quantity" name="quantity" min="1" class="form-control" required><br><br>
+        <label for="image">Image:</label><br>
+        <input type="file" id="image" name="image" class="form-control"><br><br>
+
+       <button type="submit" class="btn btn-success mt-4">SUBMIT</button>
+       <button type="reset" class="btn btn-danger ml-3 mt-4">RESET</button>
+    </form>
+</div>
+</section>

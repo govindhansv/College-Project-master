@@ -1,0 +1,148 @@
+{{!-- <section>
+
+
+    <div class="container mt-5">
+        <div class="row">
+
+            {{#each products}}
+            <div class="col-md-3 p-3">
+                <div class="card" style="width: 15rem; height: 25rem;">
+                    <img class="card-img-top" style="height:200px;" src="/product-image/{{this._id}}.jpg"
+                        alt="Card image cap">
+                    <h2 class="card-title" {{this.Price}}></h2>
+                    <div class="card-body ">
+                        <h4 class="card-title">{{this.category}}</h4>
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <h5 class="card-title">Rs.{{this.Price}}</h5>
+
+
+                        <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+
+
+            {{/each}}
+        </div>
+    </div>
+
+</section>
+<script>
+
+</script> --}}
+{{!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../public/styles/tailwind.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Add custom styles here */
+    body {
+      background-color: #f8f9fa; /* Light background color */
+    }
+    .container {
+      margin-top: 30px;
+    }
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .card-body {
+      text-align: center;
+    }
+    .card-title {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      color: #007bff; /* Blue color */
+    }
+    .btn-primary {
+      background-color: #28a745; /* Green color */
+      border-color: #28a745;
+    }
+    .btn-primary:hover {
+      background-color: #218838; /* Darker green on hover */
+      border-color: #1e7e34;
+    }
+  </style>
+  <title>Your Page Title</title>
+</head>
+<body>
+
+<section>
+  <div class="container">
+    <div class="row">
+      {{#each products}}
+      <div class="col-md-3 p-3">
+        <div class="card" style="width: 15rem; height: 25rem;">
+          <img class="card-img-top" style="height:200px;" src="/product-image/{{this._id}}.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">{{this.name}}</h4>
+            <h5 class="card-title">{{this.category}}</h5>
+            <h5 class="card-title">Rs.{{this.Price}}</h5>
+            <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add To Cart</button>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+</body>
+</html> --}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    /* Add any additional custom styles here */
+    body {
+      background-color: #f8f9fa; /* Light background color */
+    }
+  </style>
+  <title>Your Page Title</title>
+</head>
+
+<body class="bg-gray-100">
+
+  <section class="container mx-auto mt-8">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {{#each products}}
+      <div class="flex flex-col p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105">
+        <img class="h-40 w-full object-cover rounded-t-lg" src="/product-image/{{this._id}}.jpg" alt="Card image cap">
+        <div class="flex-1 flex flex-col justify-between p-4">
+          <h4 class="text-lg font-semibold text-blue-500">{{this.name}}</h4>
+          <h5 class="text-sm text-gray-700">{{this.category}}</h5>
+          <h5 class="text-lg font-semibold text-green-700">Rs.{{this.Price}}</h5>
+          <button onclick="addToCart('{{this._id}}')" class="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700 focus:outline-none focus:shadow-outline-green active:bg-green-800">Add To Cart</button>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+  </section>
+
+</body>
+
+</html>

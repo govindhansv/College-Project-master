@@ -1,0 +1,104 @@
+{{!-- 
+<SECTION>
+    <div class="container">
+      <div class="row" >
+        <a href="/owner/add-product" class="btn btn-success ml-auto mt-3" >Add Products</a>
+      </div>
+        <table class="table mt-2">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Product</th>
+      <th scope="col">Category</th>
+      <!--<th scope="col">Description</th>-->
+      <th scope="col">Price</th>
+       <th scope="col">Image</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <th scope="row">{{ @index}}</th>
+      <td>{{this.name}}</td>
+      <td>{{this.category}}</td>
+      <td>{{this.Price}}</td>
+       <td><img style="width:50px;height:50px;"src="/product-image/{{this._id}}.jpg"></td>
+       <td>
+         <a href="/owner/edit-product/{{this._id}}" class="btn btn-primary">Edit</a>
+        <a href="/owner/delete-product{{this._id}}" class="btn btn-danger" onclick="return confirm('Do you want to delete {{this.name}}' )">Delete</a>
+        
+        
+        </td>
+    </tr>
+    {{/each}}
+    
+  </tbody>
+</table>
+    </div>
+</SECTION> --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Add custom styles here */
+    body {
+      padding: 20px;
+    }
+    .product-image {
+      max-width: 50px;
+      height: 50px;
+    }
+  </style>
+  <title>Your Page Title</title>
+</head>
+<body>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="/owner/add-product" class="btn btn-success float-right mt-3">Add Products</a>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table mt-2">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product</th>
+            <th scope="col">Category</th>
+            <!--<th scope="col">Description</th>-->
+            <th scope="col">Price</th>
+            <th scope="col">Image</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each products}}
+          <tr>
+            <th scope="row">{{ @index  }}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.category}}</td>
+            <td>{{this.Price}}</td>
+            <td><img class="product-image" src="/product-image/{{this._id}}.jpg" alt="Product Image"></td>
+            <td>
+              <a href="/owner/edit-product/{{this._id}}" class="btn btn-primary btn-sm">Edit</a>
+              <a href="/owner/delete-product/{{this._id}}" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete {{this.name}}')">Delete</a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
