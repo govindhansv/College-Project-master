@@ -17,6 +17,8 @@ Handlebars.registerHelper('increment', function(value) {
 var UserRouter = require('./routes/user');
 var ownerRouter = require('./routes/owner');
 
+
+
 var app = express();
 var hbs = require('express-handlebars');
 
@@ -38,6 +40,7 @@ saveUninitialized: true,cookie:{maxAge:600000}}));
 db.connect()
 app.use('/', UserRouter);
 app.use('/owner', ownerRouter);
+
 
 
 // catch 404 and forward to error handler

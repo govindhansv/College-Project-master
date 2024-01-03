@@ -224,9 +224,16 @@ module.exports = {
       }
 
       ]).toArray()
+      console.log(" total ")
       console.log(total)
-
+      if (total.length == 0) {
+      resolve(0)
+        
+      }else{
       resolve(total[0].total)
+
+      }
+
     })
   },
   placeOrder: (order, products, total) => {
