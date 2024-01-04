@@ -1,20 +1,82 @@
 var express = require('express');
 var router = express.Router();
-var productHelper=require('../helpers/product-helpers')
+var productHelper=require('../helpers/product-helpers');
+const userHelpers = require('../helpers/user-helpers');
 
+
+
+const verifyLogin = (req, res, next) => {
+  if (req.session.owner)
+    next()
+  else
+    res.redirect('/owner/login')
+}
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', verifyLogin,function(req, res, next) {
+ let user = req.session.owner
+
  productHelper.getAllProducts().then((products)=>{
   console.log(products)
-  res.render('owner/view-products',{owner:true,products});
-
+  res.render('owner/view-products',{owner:true,products,user});
  })
- router.get('/owner-login',(req,res)=>{
-  res.render('owner/owner-login')
- })
-  
 });
+
+
+
+router.get('/login', (req, res) => {
+  if (req.session.owner) {
+    res.redirect('/owner')
+  }
+  else {
+    res.render('owner/owner-login', { "loginErr": req.session.userLogginErr })
+    req.session.userLoginErr = false
+  }
+})
+router.get('/signup', (req, res) => {
+  res.render('owner/owner-signup')
+
+})
+
+router.post('/signup', (req, res) => {
+  console.log(req.body);
+
+
+  userHelpers.doOwnerSignup(req.body).then((response) => {
+    console.log('post');
+    
+    req.session.owner = response 
+    // req.session.user = response 
+    req.session.owner.loggedIn = true//check weather it comes here or inside if
+    if (!response.signupstatus) {
+      console.error('Error during signup:');
+      res.status(500).send('Signup failed. Please try again later.');
+    } else {
+      console.log('User signed up successfully. Response:', response);
+      res.status(200).send('Signup successful!');
+    }
+  })
+
+
+});
+router.post('/login', (req, res) => {
+  userHelpers.doOwnerLogin(req.body).then((response) => {
+    if (response.status) {
+      
+      req.session.owner = response.user
+      req.session.owner.loggedIn = true
+      res.redirect('/owner') //calling an existing route
+    }
+    else {
+      req.session.userLogginErr = true
+      res.redirect('/owner/login')
+    }
+  })
+
+})
+
+
+
 router.get('/add-product',function(req,res){
   
   res.render('owner/add-product')
@@ -77,5 +139,29 @@ router.post('/edit-product/:id',(req,res)=>{
 
   })
 })
+
+
+router.get('/all-orders', async (req, res) => {
+  let orders = await userHelpers.getAllOrders()
+  // let orders = await userHelpers.getAllOrders(req.session.user._id)
+  console.log(orders);
+  res.render('owner/orders', { user: req.session.owner, orders,owner:true })
+})
+router.get('/all-users', async (req, res) => {
+  let users = await userHelpers.getAllUsers()
+  // let orders = await userHelpers.getAllOrders(req.session.user._id)
+  // console.log(orders);
+  res.render('owner/users', { user: req.session.owner, users,owner:true })
+})
+
+router.get('/all-products', async (req, res) => {
+  let user = req.session.owner
+
+  productHelper.getAllProducts().then((products)=>{
+   console.log(products)
+   res.render('owner/view-products',{owner:true,products,user});
+  })
+})
+
 
 module.exports = router;
