@@ -57,6 +57,51 @@ module.exports = {
       }
     })
   },
+  doOwnerSignup: (userdata) => {
+    return new Promise(async (resolve, reject) => {
+      let user = await db.get.collection(collection.OWNER_COLLECTIONS).findOne({ email: userdata.email })
+      if (user) {
+        let response = {}
+        response.signupstatus = false
+        resolve(response)
+      } else {
+        console.log(userdata);
+        userdata.password = await bcrypt.hash(userdata.password, 10)
+        db.get.collection(collection.OWNER_COLLECTIONS).insertOne(userdata).then((response) => {
+          response.signupstatus = true
+          response.user = userdata
+          resolve(response)
+        })
+      }
+    })
+  },
+  doOwnerLogin: (userdata) => {
+
+    return new Promise(async (resolve, reject) => {
+      let loginStatus = false
+      let response = {}
+      let user = await db.get.collection(collection.OWNER_COLLECTIONS).findOne({ email: userdata.email })
+      if (user) {
+        bcrypt.compare(userdata.password, user.password).then((status) => {
+          if (status) {
+            console.log("connection established")
+            response.user = user
+            response.status = true
+            resolve(response)
+          }
+          else {
+            console.log(" connection failed")
+            resolve({ status: false })
+          }
+        })
+
+      }
+      else {
+        console.log("login failed")
+        resolve({ status: false })
+      }
+    })
+  },
   addTocart: (proId, userId) => {
     let proObj = {
       item: new objectID(proId),
@@ -269,6 +314,36 @@ module.exports = {
       console.log(cart)
       resolve(cart.products)
     })
+  },
+  getAllOrders: (userId) => {
+    return new Promise(async (resolve, reject) => {
+      console.log(userId)
+      let orders = await db.get.collection(collection.ORDER_COLLECTIONS).find({}).toArray()
+      // userId: new objectID(userId) 
+      console.log(orders)
+      resolve(orders)
+    })
+
+  },
+  getAllUsers: () => {
+    return new Promise(async (resolve, reject) => {
+      // console.log(userId)
+      let orders = await db.get.collection(collection.USER_COLLECTIONS).find({}).toArray()
+      // userId: new objectID(userId) 
+      // console.log(orders)
+      resolve(orders)
+    })
+
+  },
+  getAllProducts: () => {
+    return new Promise(async (resolve, reject) => {
+      // console.log(userId)
+      let orders = await db.get.collection(collection.PRODUCT_COLLECTION).find({}).toArray()
+      // userId: new objectID(userId) 
+      // console.log(orders)
+      resolve(orders)
+    })
+
   },
   getUserOrders: (userId) => {
     return new Promise(async (resolve, reject) => {

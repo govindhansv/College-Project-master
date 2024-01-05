@@ -98,6 +98,7 @@ router.post('/ulogin', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.session.user=null
+  req.session.owner=null
   res.redirect('/')
 })
 router.get('/cart', verifyLogin, async (req, res) => {
@@ -161,11 +162,14 @@ router.post('/place-order', async (req, res) => {
 router.get('/order-success', (req, res) => {
   res.render('user/order-success', { user: req.session.user })
 })
+
+
 router.get('/orders', async (req, res) => {
   let orders = await userHelpers.getUserOrders(req.session.user._id)
   console.log(orders);
   res.render('user/orders', { user: req.session.user, orders })
 })
+
 router.get('/view-order-products/:id', async (req, res) => {
   let products = await userHelpers.getOrderProducts(req.params.id)
   res.render('user/view-order-products', { user: req.session.user, products })
