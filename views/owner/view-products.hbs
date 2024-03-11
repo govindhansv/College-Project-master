@@ -61,6 +61,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+        {{user.name}}
+        {{user._id}}
+
         <a href="/owner/add-product" class="btn btn-success float-right mt-3">Add Products</a>
       </div>
     </div>
@@ -80,7 +83,7 @@
         <tbody>
           {{#each products}}
           <tr>
-            <th scope="row">{{ @index  }}</th>
+            <th scope="row">{{ @index }}</th>
             <td>{{this.name}}</td>
             <td>{{this.category}}</td>
             <td>{{this.Price}}</td>

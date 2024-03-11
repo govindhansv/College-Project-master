@@ -16,7 +16,7 @@ const verifyLogin = (req, res, next) => {
 router.get('/', verifyLogin,function(req, res, next) {
  let user = req.session.owner
 
- productHelper.getAllProducts().then((products)=>{
+ productHelper.getOwnerProducts(user._id).then((products)=>{
   console.log(products)
   res.render('owner/view-products',{owner:true,products,user});
  })
@@ -57,13 +57,16 @@ router.post('/signup', (req, res) => {
     }
   })
 
-
 });
+
 router.post('/login', (req, res) => {
   userHelpers.doOwnerLogin(req.body).then((response) => {
     if (response.status) {
       
       req.session.owner = response.user
+      console.log("req.session.owner");
+      console.log(req.session.owner);
+
       req.session.owner.loggedIn = true
       res.redirect('/owner') //calling an existing route
     }
@@ -85,6 +88,7 @@ router.get('/add-product',function(req,res){
 router.post('/add-product',(req,res)=>{
   
   console.log(req.body)
+  req.body.ownerId = req.session.owner._id
   console.log(req.files.image)
   productHelper.addproduct(req.body,(id)=>{
     let image=req.files.image

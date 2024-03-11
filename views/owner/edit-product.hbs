@@ -93,7 +93,7 @@
     <form action="/owner/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
       <label for="product_name">Product Name:</label><br>
       <input type="text" id="product_name" name="name" required class="form-control" value="{{product.name}}"><br><br>
-
+  <input type="text" disabled value="{{product.ownerId}}"> <br>
       <label for="category">Category:</label><br>
       <select id="category" name="category" class="form-control" value="{{product.category}}">
         <option value="vegetables">Vegetables</option>
