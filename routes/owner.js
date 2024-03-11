@@ -14,9 +14,9 @@ const verifyLogin = (req, res, next) => {
 
 /* GET users listing. */
 router.get('/', verifyLogin,function(req, res, next) {
- let user = req.session.owner
+ let owner = req.session.owner
 
- productHelper.getOwnerProducts(user._id).then((products)=>{
+ productHelper.getOwnerProducts(owner._id).then((products)=>{
   console.log(products)
   res.render('owner/view-products',{owner:true,products,user});
  })

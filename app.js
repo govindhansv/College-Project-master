@@ -16,7 +16,7 @@ Handlebars.registerHelper('increment', function(value) {
 
 var UserRouter = require('./routes/user');
 var ownerRouter = require('./routes/owner');
-
+var devRouter = require('./routes/dev');
 
 
 var app = express();
@@ -40,6 +40,8 @@ saveUninitialized: true,cookie:{maxAge:600000}}));
 db.connect()
 app.use('/', UserRouter);
 app.use('/owner', ownerRouter);
+app.use('/dev', devRouter);
+
 
 
 
