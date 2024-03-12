@@ -9,7 +9,12 @@ const verifyLogin = (req, res, next) => {
   else
     res.redirect('/ulogin')
 }
+
 /* GET home page. */
+router.get('/home', async function (req, res, next) {
+    res.render('app/home');
+});
+
 router.get('/', async function (req, res, next) {
 
   let user = req.session.user
@@ -25,6 +30,7 @@ router.get('/', async function (req, res, next) {
     res.render('user/home', { products, user, cartCount });
   })
 });
+
 
 router.get('/category/:category', async function (req, res, next) {
 

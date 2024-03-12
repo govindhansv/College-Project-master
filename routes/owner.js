@@ -4,7 +4,6 @@ var productHelper=require('../helpers/product-helpers');
 const userHelpers = require('../helpers/user-helpers');
 
 
-
 const verifyLogin = (req, res, next) => {
   if (req.session.owner)
     next()
@@ -12,17 +11,40 @@ const verifyLogin = (req, res, next) => {
     res.redirect('/owner/login')
 }
 
-/* GET users listing. */
+
 router.get('/', verifyLogin,function(req, res, next) {
+  let owner = req.session.owner
+   res.render('owner/dashboard',{owner});
+ });
+
+ 
+/* GET users listing. */
+router.get('/all-products', verifyLogin,function(req, res, next) {
  let owner = req.session.owner
 
  productHelper.getOwnerProducts(owner._id).then((products)=>{
   console.log(products)
-  res.render('owner/view-products',{owner:true,products,user});
+  res.render('owner/view-products',{owner:true,products,owner});
  })
 });
-
-
+router.get('/', verifyLogin,function(req, res, next) {
+  let owner = req.session.owner
+ 
+  productHelper.getOwnerProducts(owner._id).then((products)=>{
+   console.log(products)
+   res.render('owner/view-products',{owner:true,products,owner});
+  })
+ });
+ 
+router.get('/store', verifyLogin,function(req, res, next) {
+  let owner = req.session.owner
+  console.log(owner);
+  productHelper.getOwnerProducts(owner._id).then((products)=>{
+    console.log(products)
+    res.render('owner/store',{owner:true,products,owner});
+   })
+ });
+ 
 
 router.get('/login', (req, res) => {
   if (req.session.owner) {
