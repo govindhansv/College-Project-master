@@ -1,0 +1,26 @@
+<section>
+  <div class="container mt-4">
+    <h2 class="center">EDIT CATEGORY</h2>
+    <form action="/owner/edit-category/{{category._id}}" method="POST" enctype="multipart/form-data">
+      <label for="category_name">Category Name:</label><br>
+      <input type="text" id="category_name" name="name" class="form-control" value="{{category.name}}"><br><br>
+
+      <label for="category_image">Image:</label><br>
+      <img src="/category-image/{{category._id}}.jpg" style="width:100px;height:auto;" id="imgview">
+      <input type="file" id="category_image" name="image" class="form-control" onchange="viewImage(event)"><br><br>
+
+      <button type="submit" class="btn btn-success mt-4">SUBMIT</button>
+      <button type="reset" class="btn btn-danger ml-3 mt-4">RESET</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  function viewImage(event) {
+    document.getElementById('imgview').src = URL.createObjectURL(event.target.files[0]);
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

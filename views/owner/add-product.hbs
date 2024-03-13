@@ -7,10 +7,7 @@
 
         <label for="category">Category:</label><br>
         <select id="category" name="category" class="form-control">
-            <option value="vegetables">Vegetables</option>
-            <option value="fruits">Fruits</option>
-            <option value="powders_and_spices">Powders and Spices</option>
-            <option value="bakery">Bakery</option>
+           
         </select><br><br>
 
         <label for="Price">Price:</label><br>
@@ -28,3 +25,25 @@
     </form>
 </div>
 </section>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Fetch categories from the API endpoint
+    $.getJSON("/owner/all-categories/names-only", function(data) {
+      // Check if categories are successfully retrieved
+      console.log(data)
+      if (data && data.categories) {
+        // Iterate through each category name and append as an option to the select element
+        data.categories.forEach(function(category) {
+          $('#category').append($('<option>', {
+            value: category,
+            text: category
+          }));
+        });
+      }
+    });
+  });
+</script>

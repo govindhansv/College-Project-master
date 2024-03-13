@@ -1,40 +1,4 @@
-{{!-- <section>
-<div class="container mt-4">
-    <h2 class="center">EDIT PRODUCT</h2>
-    <form action="/owner/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
-        <label for="product_name">Product Name:</label><br>
-        <input type="text" id="product_name" name="name" required class="form-control"  value="{{product.name}}"><br><br>
 
-        <label for="category">Category:</label><br>
-        <select id="category" name="category" class="form-control"  value="{{product.category}}">
-            <option value="vegetables">Vegetables</option>
-            <option value="fruits">Fruits</option>
-            <option value="powders_and_spices">Powders and Spices</option>
-            <option value="bakery">Bakery</option>
-        </select><br><br>
-
-        <label for="Price" >Price:</label><br>
-       <!-- <label for="description" >Description:</label><br>
-        <input type="text" id="description" name="description" class="form-control" value="Rs.{{product.description}}" ><br><br>-->
-        <input type="number" id="Price" name="Price" class="form-control" value="Rs.{{product.Price}}" ><br><br>
-
-        <label for="quantity">Quantity:</label><br>
-        <input type="number" id="quantity" name="quantity" min="1" class="form-control" required value="{{product.quantity}}"><br><br>
-        <label for="image">Image:</label><br>
-        <img src="/product-image/{{product._id}}.jpg" style="width:100px;height:auto;" id="imgview">
-        <input type="file" id="image" name="image" class="form-control" onchange="viewImage(event)"><br><br>
-
-       <button type="submit" class="btn btn-success mt-4">SUBMIT</button>
-       <button type="reset" class="btn btn-danger ml-3 mt-4">RESET</button>
-    </form>
-</div>
-</section>
-<script>
-    function viewImage('event')
-    document.getElementById('imgview').src=URL.createObjectURL(event.target.files[0]){
-
-    }
-</script> --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,10 +60,6 @@
   <input type="text" disabled value="{{product.ownerId}}"> <br>
       <label for="category">Category:</label><br>
       <select id="category" name="category" class="form-control" value="{{product.category}}">
-        <option value="vegetables">Vegetables</option>
-        <option value="fruits">Fruits</option>
-        <option value="powders_and_spices">Powders and Spices</option>
-        <option value="bakery">Bakery</option>
       </select><br><br>
 
       <label for="Price">Price:</label><br>
@@ -129,3 +89,24 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Fetch categories from the API endpoint
+    $.getJSON("/owner/all-categories/names-only", function(data) {
+      // Check if categories are successfully retrieved
+      console.log(data)
+      if (data && data.categories) {
+        // Iterate through each category name and append as an option to the select element
+        data.categories.forEach(function(category) {
+          $('#category').append($('<option>', {
+            value: category,
+            text: category
+          }));
+        });
+      }
+    });
+  });
+</script>
