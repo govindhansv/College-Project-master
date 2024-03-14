@@ -18,7 +18,7 @@ module.exports = {
   },
   getOwnerCategories: (id) => {
     return new Promise(async (resolve, reject) => {
-      let categories = await db.get.collection(collection.CATEGORY_COLLECTION).find({ ownerId: id }).toArray()
+      let categories = await db.get.collection(collection.CATEGORY_COLLECTION).find({ }).toArray()
       resolve(categories)
     })
   },

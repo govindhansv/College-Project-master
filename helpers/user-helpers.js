@@ -63,9 +63,14 @@ module.exports = {
       if (user) {
         let response = {}
         response.signupstatus = false
-        resolve(response)
+        resolve({ error: 'Signup failed. Email Already Exists! ' })
+      } else if (userdata.password !== userdata.rpassword) {
+        let response = {}
+        response.signupstatus = false
+        resolve({ error: 'Passwords do not match' })
       } else {
         console.log(userdata);
+
         userdata.password = await bcrypt.hash(userdata.password, 10)
         db.get.collection(collection.OWNER_COLLECTIONS).insertOne(userdata).then((response) => {
           response.signupstatus = true
@@ -272,10 +277,10 @@ module.exports = {
       console.log(" total ")
       console.log(total)
       if (total.length == 0) {
-      resolve(0)
-        
-      }else{
-      resolve(total[0].total)
+        resolve(0)
+
+      } else {
+        resolve(total[0].total)
 
       }
 
@@ -394,7 +399,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       console.log("Total*****" + total)
       var options = {
-        amount: total*100,
+        amount: total * 100,
         currency: "INR",
         receipt: "" + orderId
 
@@ -416,32 +421,32 @@ module.exports = {
 
     })
   },
-  verifyPayment:(details)=>{
-    return new Promise((resolve,reject)=>{
+  verifyPayment: (details) => {
+    return new Promise((resolve, reject) => {
       const { createHmac } = require('node:crypto');
 
-const secret = 'SxHg4MJiijy013g3jrCS2myv';
-let hash = createHmac('sha256', secret)
-               .update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]'])
-               .digest('hex');
-               if(hash==details['payment[razorpay_signature]']){
-                resolve()
-               }
-               else{
-                reject()
-               }
-console.log(hash);
-// Prints:
-//   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
+      const secret = 'SxHg4MJiijy013g3jrCS2myv';
+      let hash = createHmac('sha256', secret)
+        .update(details['payment[razorpay_order_id]'] + '|' + details['payment[razorpay_payment_id]'])
+        .digest('hex');
+      if (hash == details['payment[razorpay_signature]']) {
+        resolve()
+      }
+      else {
+        reject()
+      }
+      console.log(hash);
+      // Prints:
+      //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
     })
   },
-  changePaymentStatus:(orderId)=>{
-    return new Promise((resolve,reject)=>{
-      db.get.collection(collection.ORDER_COLLECTIONS).updateOne({_id:new objectID(orderId)},{
-        $set:{
-          status:'placed'
+  changePaymentStatus: (orderId) => {
+    return new Promise((resolve, reject) => {
+      db.get.collection(collection.ORDER_COLLECTIONS).updateOne({ _id: new objectID(orderId) }, {
+        $set: {
+          status: 'placed'
         }
-      }).then(()=>{
+      }).then(() => {
         resolve()
       })
     })

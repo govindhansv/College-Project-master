@@ -97,6 +97,34 @@
     // Fetch categories from the API endpoint
     $.getJSON("/owner/all-categories/names-only", function(data) {
       // Check if categories are successfully retrieved
+      console.log(data);
+      if (data && data.categories) {
+        // Iterate through each category name and append as an option to the select element
+        data.categories.forEach(function(category) {
+          // Create option element
+          var option = $('<option>', {
+            value: category,
+            text: category
+          });
+
+          // If the category matches the product's current category, mark it as selected
+          if (category === "{{product.category}}") {
+            option.attr("selected", "selected");
+          }
+
+          // Append option to select element
+          $('#category').append(option);
+        });
+      }
+    });
+  });
+</script>
+
+{{!-- <script>
+  $(document).ready(function() {
+    // Fetch categories from the API endpoint
+    $.getJSON("/owner/all-categories/names-only", function(data) {
+      // Check if categories are successfully retrieved
       console.log(data)
       if (data && data.categories) {
         // Iterate through each category name and append as an option to the select element
@@ -109,4 +137,4 @@
       }
     });
   });
-</script>
+</script> --}}

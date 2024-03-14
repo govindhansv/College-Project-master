@@ -48,13 +48,37 @@
 
     <section class="mt-5">
         <div class="container mx-auto">
+            <h2 class="text-center mb-4 text-2xl"> STORES </h2>
+            <div class="flex flex-wrap">
+                {{#each stores}}
+                <div class="w-full md:w-1/2 lg:w-1/4 p-4">
+                    <a href="/owner/store/view/{{this._id}}"
+                        class="w-full bg-white border border-primary rounded-md p-4 hover:bg-primary hover:text-white transition-all duration-300">
+                        <div class="aspect-w-4 aspect-h-3 mb-2">
+                            <img src="https://img.freepik.com/premium-photo/assortment-exotic-fruits-isolated_272787-852.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph"
+                                alt="Fruits" class="w-full h-full object-cover rounded-md">
+                        </div>
+                        <span class="block text-center font-semibold">{{this.name}}</span>
+                    </a>
+                </div>
+{{/each}}
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="mt-5">
+        <div class="container mx-auto">
             <h2 class="text-center mb-4 text-2xl">Product Categories</h2>
             <div class="flex flex-wrap">
                 <div class="w-full md:w-1/2 lg:w-1/4 p-4">
                     <button type="button" onclick="window.location.href='/'"
                         class="w-full bg-white border border-primary rounded-md p-4 hover:bg-primary hover:text-white transition-all duration-300">
                         <div class="aspect-w-4 aspect-h-3 mb-2">
-                            <img src="https://img.freepik.com/premium-vector/flour-icons-set_98402-1536.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph" alt="Flours" class="w-full h-full object-cover rounded-md">
+                            <img src="https://img.freepik.com/premium-vector/flour-icons-set_98402-1536.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph"
+                                alt="Flours" class="w-full h-full object-cover rounded-md">
                         </div>
                         <span class="block text-center font-semibold">Flours</span>
                     </button>
@@ -63,7 +87,8 @@
                     <button type="button" onclick="window.location.href='/category/Spices'"
                         class="w-full bg-white border border-primary rounded-md p-4 hover:bg-primary hover:text-white transition-all duration-300">
                         <div class="aspect-w-4 aspect-h-3 mb-2">
-                            <img src="https://img.freepik.com/free-vector/herb-spice-poster_1284-11649.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph" alt="Groceries" class="w-full h-full object-cover rounded-md">
+                            <img src="https://img.freepik.com/free-vector/herb-spice-poster_1284-11649.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph"
+                                alt="Groceries" class="w-full h-full object-cover rounded-md">
                         </div>
                         <span class="block text-center font-semibold">Spices</span>
                     </button>
@@ -72,7 +97,8 @@
                     <button type="button" onclick="window.location.href='/category/vegetables'"
                         class="w-full bg-white border border-primary rounded-md p-4 hover:bg-primary hover:text-white transition-all duration-300">
                         <div class="aspect-w-4 aspect-h-3 mb-2">
-                            <img src="https://img.freepik.com/free-vector/vegetables-fruits-rainbow-poster_1284-9929.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph" alt="Vegetables" class="w-full h-full object-cover rounded-md">
+                            <img src="https://img.freepik.com/free-vector/vegetables-fruits-rainbow-poster_1284-9929.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph"
+                                alt="Vegetables" class="w-full h-full object-cover rounded-md">
                         </div>
                         <span class="block text-center font-semibold">Vegetables</span>
                     </button>
@@ -81,7 +107,8 @@
                     <button type="button" onclick="window.location.href='/category/fruits'"
                         class="w-full bg-white border border-primary rounded-md p-4 hover:bg-primary hover:text-white transition-all duration-300">
                         <div class="aspect-w-4 aspect-h-3 mb-2">
-                            <img src="https://img.freepik.com/premium-photo/assortment-exotic-fruits-isolated_272787-852.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph" alt="Fruits" class="w-full h-full object-cover rounded-md">
+                            <img src="https://img.freepik.com/premium-photo/assortment-exotic-fruits-isolated_272787-852.jpg?size=626&ext=jpg&ga=GA1.1.1249537372.1695249140&semt=sph"
+                                alt="Fruits" class="w-full h-full object-cover rounded-md">
                         </div>
                         <span class="block text-center font-semibold">Fruits</span>
                     </button>
@@ -89,6 +116,7 @@
             </div>
         </div>
     </section>
+
 
 </body>
 

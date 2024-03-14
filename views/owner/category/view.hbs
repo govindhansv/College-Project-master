@@ -187,6 +187,7 @@
                 <tr>
                   <th class="px-4 py-2">#</th>
                   <th class="px-4 py-2">Category</th>
+                  <th class="px-4 py-2">Image</th>
                   <th class="px-4 py-2">Actions</th>
                 </tr>
               </thead>
@@ -195,6 +196,9 @@
                 <tr>
                   <td class="border px-4 py-2"> {{ @index }}</td>
                   <td class="border px-4 py-2">{{this.name}} </td>
+                  <td class="border px-4 py-2">
+                    <img class="product-image" src="/category-image/{{this._id}}.jpg" alt="Product Image">
+                  </td>
                   <td class="border px-4 py-2">
                     <a href="/owner/edit-category/{{this._id}}"
                       class="mb-6 inline-flex justify-center px-3 py-2 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md tems-center hover:bg-blue-700 focus:bg-blue-700 ">Edit</a>

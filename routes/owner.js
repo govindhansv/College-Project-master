@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var productHelper = require('../helpers/product-helpers');
 var categoryHelper = require('../helpers/category-helpers');
+var storeHelper = require('../helpers/store-helpers');
+
 const userHelpers = require('../helpers/user-helpers');
 
 
@@ -73,7 +75,7 @@ router.post('/signup', (req, res) => {
     req.session.owner.loggedIn = true//check weather it comes here or inside if
     if (!response.signupstatus) {
       console.error('Error during signup:');
-      res.status(500).send('Signup failed. Please try again later.');
+      res.status(500).send(response.error);
     } else {
       console.log('User signed up successfully. Response:', response);
       res.status(200).send('Signup successful!');
@@ -91,6 +93,7 @@ router.post('/login', (req, res) => {
       console.log(req.session.owner);
 
       req.session.owner.loggedIn = true
+      console.log(req.session.owner);
       res.redirect('/owner') //calling an existing route
     }
     else {
@@ -145,21 +148,20 @@ router.post('/edit-product/:id', (req, res) => {
     console.log(req.params)
     let id = req.params.id
     res.redirect('/owner/all-products')
-    if (req.files.Image) {
-      let image = req.files.Image
 
-      // image.mv('./public/product-image/'+id+'.jpg')
-      image.mv('./public/product-image/' + id + '.jpg', (err, done) => {
-        if (!err) {
-          console.log(' no err');
-          // res.render('owner/add-product')
-        }
-        else {
-          console.log(err)
-        }
-      })
+      if (req.files && req.files.Image) {
+        let image = req.files.Image;
+  
+        image.mv('./public/product-image/' + id + '.jpg', (err, done) => {
+          if (!err) {
+            console.log('Image uploaded successfully');
+          } else {
+            console.log(err);
+          }
+        });
+      }
 
-    }
+    
 
 
 
@@ -191,7 +193,7 @@ router.get('/all-categories/names-only', verifyLogin, function (req, res) {
     console.log(categories)
     let categoryNames = categories.map(category => category.name);
     console.log({ categories: categoryNames });
-    res.json({ categories: categoryNames });
+    res.json({ categories: categoryNames ,owner});
   })
 });
 
@@ -275,5 +277,61 @@ router.get('/all-products', async (req, res) => {
   })
 })
 
+// STORE PROFILE
+
+router.get('/store/profile', async function (req, res) {
+  let owner = req.session.owner;
+  let store = await storeHelper.getStore(owner._id);
+  console.log("owner",owner,"store")
+  console.log(store);
+
+  let products = await productHelper.getOwnerProducts(owner._id)
+  console.log(products)
+
+  res.render('owner/store/preview',{owner,products,store})
+});
+
+router.get('/store/view/:id', async function (req, res) {
+  let id = req.params.id;
+  let store = await storeHelper.getStore(id);
+  console.log("owner","store")
+  console.log(store);
+
+  let products = await productHelper.getOwnerProducts(id)
+  console.log(products)
+
+  res.render('owner/store/view',{products,store})
+});
+
+
+router.get('/store/profile/edit/', async (req, res) => {
+  let owner = req.session.owner;
+  res.render('owner/store/edit',{owner})
+})
+
+router.post('/store/profile/edit/', (req, res) => {
+  req.session.owner.heading = req.body.heading;
+  req.session.owner.desc = req.body.desc;
+
+  let owner = req.session.owner;
+
+  console.log(req.body);
+  storeHelper.UpdateStore(owner._id, req.body).then(() => {
+    // let id = owner._id
+    res.redirect('/owner/store/profile/')
+
+      // if (req.files && req.files.Image) {
+      //   let image = req.files.Image;
+  
+      //   image.mv('./public/store-image/' + id + '.jpg', (err, done) => {
+      //     if (!err) {
+      //       console.log('Image uploaded successfully');
+      //     } else {
+      //       console.log(err);
+      //     }
+      //   });
+      // }
+  })
+})
 
 module.exports = router;

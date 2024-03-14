@@ -21,6 +21,7 @@ var devRouter = require('./routes/dev');
 
 var app = express();
 var hbs = require('express-handlebars');
+const { ObjectId } = require('mongodb');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,6 +39,29 @@ app.use(session({secret:"Key" , resave: false,
 saveUninitialized: true,cookie:{maxAge:600000}}));
 
 db.connect()
+
+
+// Middleware to fake session
+function fakeSession(req, res, next) {
+  if (process.env.NODE_ENV != 'production') {
+    // Assuming you have a function to authenticate the user and create a session
+    // Replace it with your actual authentication logic
+    req.session.owner = {
+      _id: new ObjectId("6596cce6fd9c707875b312ed"),
+      name: 'Ramesh',
+      email: 'ramesh@gmail.com',
+      password: '$2b$10$.3gki5iNzzY50p6H7k8wZeUHJf83SJfTrW0v8UjGzzBCfQTV2h23G',
+      rpassword: '123',
+      loggedIn: true
+    }
+    
+  }
+  next();
+}
+
+// Apply the middleware to all routes
+// app.use(fakeSession);
+
 app.use('/', UserRouter);
 app.use('/owner', ownerRouter);
 app.use('/dev', devRouter);

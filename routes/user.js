@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var productHelper = require('../helpers/product-helpers')
 var UserHelper = require('../helpers/user-helpers');
+var storeHelper = require('../helpers/store-helpers');
+
 const userHelpers = require('../helpers/user-helpers');
 const verifyLogin = (req, res, next) => {
   if (req.session.user.loggedIn)
@@ -15,8 +17,10 @@ router.get('/home', async function (req, res, next) {
     res.render('app/home');
 });
 
-router.get('/', async function (req, res, next) {
+router.get('/', verifyLogin, async function (req, res, next) {
 
+  let stores = await storeHelper.getAllStores();
+console.log(stores);
   let user = req.session.user
   console.log(user)
   let cartCount = null
@@ -27,7 +31,7 @@ router.get('/', async function (req, res, next) {
 
   productHelper.getAllProducts().then((products) => {
 
-    res.render('user/home', { products, user, cartCount });
+    res.render('user/home', { products,stores, user, cartCount });
   })
 });
 
@@ -80,7 +84,8 @@ router.post('/signup', (req, res) => {
       res.status(500).send('Signup failed. Please try again later.');
     } else {
       console.log('User signed up successfully. Response:', response);
-      res.status(200).send('Signup successful!');
+      res.redirect('/');
+      // res.status(200).send('Signup successful!');
     }
   })
 

@@ -1,0 +1,10 @@
+POST http://localhost:3000/owner/signup HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Ravi",
+    "email":"ravi@gmail.com",
+    "password":"123",
+    "rpassword":"123"
+}
+
