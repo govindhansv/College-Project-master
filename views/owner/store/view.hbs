@@ -4,7 +4,7 @@
             <div class="sm:max-w-lg">
                 <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
                     {{store.heading}}
-                    </h1>
+                </h1>
                 <p class="mt-4 text-xl text-gray-500"> {{store.desc}} </p>
             </div>
             <div>
@@ -15,12 +15,12 @@
                         <div
                             class="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
                             <div class="flex items-center space-x-6 lg:space-x-8 p-8">
-                                    <div class="h-auto w-full overflow-hidden rounded-xl m-8 sm:opacity-0 lg:opacity-100">
-                                        <img src="/assets/store.jpg"
-                                            alt="" class="h-full w-full object-cover object-center">
-                                    </div>
-                                  
-                                
+                                <div class="h-auto w-full overflow-hidden rounded-xl m-8 sm:opacity-0 lg:opacity-100">
+                                    <img src="/assets/store.jpg" alt=""
+                                        class="h-full w-full object-cover object-center">
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -47,41 +47,29 @@
                 adipiscing elit. Purus faucibus massa dignissim tempus.</p> --}}
         </div>
 
-        <div class="grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
 
-            {{#each products}}
-            <div class="relative group border p-4 rounded">
-                <div class="overflow-hidden aspect-w-1 aspect-h-1 ">
-                    <img class="object-cover w-auto h-32 transition-all duration-300 group-hover:scale-125"
-                        src="/product-image/{{this._id}}.jpg"
-                        alt="" />
-                </div>
-                <div class="flex items-start justify-between mt-4 space-x-4">
-                    <div>
-                        <h3 class="text-xs font-bold text-gray-900 sm:text-sm md:text-base">
-                            <a href="#" title="">
-                                {{this.name}}
-                                <span class="absolute inset-0" aria-hidden="true"></span>
-                            </a>
-                        </h3>
-                        
-                    </div>
+        <section class="container mx-auto mt-8">
 
-                    <div class="text-right">
-                        <p class="text-xs font-bold text-gray-900 sm:text-sm md:text-base"> {{this.Price}} ₹ </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {{#each products}}
+                <div
+                    class="flex flex-col p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105">
+                    <img class="h-40 w-full object-cover rounded-t-lg" src="/product-image/{{this._id}}.jpg"
+                        alt="Card image cap">
+                    <div class="flex-1 flex flex-col justify-between p-4">
+                        <h4 class="text-lg font-semibold text-blue-500">{{this.name}}</h4>
+                        <h5 class="text-sm text-gray-700">{{this.category}}</h5>
+                        <h5 class="text-lg font-semibold text-green-700">Rs.{{this.Price}}</h5>
+                        <button onclick="addToCart('{{this._id}}')"
+                            class="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700 focus:outline-none focus:shadow-outline-green active:bg-green-800">Add
+                            To Cart</button>
                     </div>
                 </div>
+                {{/each}}
             </div>
 
-            {{/each }}
-        </div>
+        </section>
+
+
     </div>
 </section>
-
-<!-- Bottom-Left Corner -->
-<div class="fixed bottom-8 right-8">
-    <a href="/owner/store/profile/edit"
-        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-4 rounded-full shadow-lg">
-        Edit Store
-        </a>
-</div>

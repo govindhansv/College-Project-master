@@ -111,6 +111,7 @@ router.get('/add-product', function (req, res) {
   res.render('owner/add-product')
 
 });
+
 router.post('/add-product', (req, res) => {
 
   console.log(req.body)
@@ -255,6 +256,17 @@ router.post('/edit-category/:id', (req, res) => {
 
 // ORDERS
 
+
+router.get('/order/change-status/:id', async (req, res) => {
+  let id = req.params.id;
+  productHelper.updateStatus(req.params.id, {"status":"packed"}).then(() => {
+ 
+    res.redirect('/owner/all-orders')
+    
+    
+  })
+})
+
 router.get('/all-orders', async (req, res) => {
   let orders = await userHelpers.getAllOrders()
   // let orders = await userHelpers.getAllOrders(req.session.user._id)
@@ -293,14 +305,19 @@ router.get('/store/profile', async function (req, res) {
 
 router.get('/store/view/:id', async function (req, res) {
   let id = req.params.id;
+  let user = req.session.user;
   let store = await storeHelper.getStore(id);
   console.log("owner","store")
   console.log(store);
+  let cartCount = null
+  if (req.session.user) {
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
+  }
 
   let products = await productHelper.getOwnerProducts(id)
   console.log(products)
 
-  res.render('owner/store/view',{products,store})
+  res.render('owner/store/view',{products,store,user,cartCount})
 });
 
 

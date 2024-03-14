@@ -5,7 +5,7 @@
             <div class="col-md-3 p-3">
                 <div class="card" style="width:15 rem;height:24 rem;">
                     <img class="card-img-top"
-                    src="/product-images/{{this.product._id}}.jpg"
+                    src="/assets/items.jpeg"
                     alt="Card image cap"
                     style="height:12 rem;">
                     <div class="card-body">
@@ -13,6 +13,8 @@
                         <p class="card-text">Rs.{{this.product.Price}}</p>
                         <p class="card-text">Quantity{{this.quantity}}</p>
                     </div>
+{{!-- ERROR HERE IMG NOT DISPLAYED , CAUSE ITS OBJECT ID, NEED TO CONVERT IT TO STRING --}}
+
                 </div>
             </div>
             {{/each}}

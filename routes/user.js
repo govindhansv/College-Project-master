@@ -6,7 +6,7 @@ var storeHelper = require('../helpers/store-helpers');
 
 const userHelpers = require('../helpers/user-helpers');
 const verifyLogin = (req, res, next) => {
-  if (req.session.user.loggedIn)
+  if (req.session.user)
     next()
   else
     res.redirect('/ulogin')
@@ -20,6 +20,7 @@ router.get('/home', async function (req, res, next) {
 router.get('/', verifyLogin, async function (req, res, next) {
 
   let stores = await storeHelper.getAllStores();
+  
 console.log(stores);
   let user = req.session.user
   console.log(user)
@@ -70,6 +71,11 @@ router.get('/signup', (req, res) => {
   res.render('user/signup')
 
 })
+
+router.get('/profile', (req, res) => {
+  res.render('user/profile',{user:req.session.user})
+})
+
 router.post('/signup', (req, res) => {
   console.log(req.body);
 
@@ -183,6 +189,7 @@ router.get('/orders', async (req, res) => {
 
 router.get('/view-order-products/:id', async (req, res) => {
   let products = await userHelpers.getOrderProducts(req.params.id)
+  console.log("products",products);
   res.render('user/view-order-products', { user: req.session.user, products })
 })
 router.post('/verify-payment', (req, res) => {

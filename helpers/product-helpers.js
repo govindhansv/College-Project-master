@@ -20,7 +20,7 @@ module.exports = {
   },
   getOwnerProducts: (id) => {
     return new Promise(async (resolve, reject) => {
-      let products = await db.get.collection(collection.PRODUCT_COLLECTION).find({ownerId:id}).toArray()
+      let products = await db.get.collection(collection.PRODUCT_COLLECTION).find({ ownerId: id }).toArray()
       resolve(products)
     })
   },
@@ -71,7 +71,27 @@ module.exports = {
         });
 
 
+    });
+  },
+  updateStatus: (ordId, newObj) => {
+    return new Promise((resolve, reject) => {
+
+      let orderId = new objectID(ordId)
+      db.get.collection(collection.ORDER_COLLECTIONS).updateOne({ _id: orderId },
+        {
+          $set: newObj
+
+        }).then((response) => {
+          console.log(response);
+          resolve()
+        }).catch((error) => {
+          console.error("Error updating product:", error);
+          reject(error);
+        });
+
+
     })
+
   }
 
 }
