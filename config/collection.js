@@ -5,5 +5,6 @@ module.exports={
     ORDER_COLLECTIONS:'order',
     OWNER_COLLECTIONS:'owner',
     CATEGORY_COLLECTION:'category',
-    STORE_COLLECTION:'store'
+    STORE_COLLECTION:'store',
+    ADMIN_COLLECTIONS:'admin'
 }

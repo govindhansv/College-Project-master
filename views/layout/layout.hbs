@@ -14,11 +14,16 @@
 
 <body>
     {{#if owner}}
-    {{>owner-header}}
+    {{> owner-header}}
     {{else}}
-    {{>user-header}}
+    {{#if user}}
+    {{> user-header}}
+    {{else}}
+    {{> admin-header}}
+    {{/if}}
     {{/if}}
     {{{body}}}
+
 
 
     <!-- Optional JavaScript -->

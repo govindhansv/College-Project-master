@@ -40,6 +40,16 @@ module.exports = {
       })
     })
   },
+  deleteUser: (prodId) => {
+    return new Promise((resolve, reject) => {
+      let prId = new objectID(prodId)
+      db.get.collection(collection.USER_COLLECTIONS).deleteOne({ _id: prId }).then((response) => {
+        //console.log(response)
+        resolve(response)
+      })
+    })
+  },
+
   getProductDetails: (proId) => {
     return new Promise((resolve, reject) => {
       let prId = new objectID(proId)

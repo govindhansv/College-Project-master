@@ -1,97 +1,79 @@
-var db = require('../config/connection')
-var collection = require('../config/collection')
-const objectID = require('mongodb').ObjectId
+const db = require('../config/connection');
+const collection = require('../config/collection');
+const bcrypt = require('bcrypt');
 
 module.exports = {
-  addproduct: (products, callback) => {
-    console.log(products);
-    db.get.collection('products').insertOne(products).then((data) => {
-      let obj = data.insertedId
+  
+  doAdminSignup: (userdata) => {
+    return new Promise(async (resolve, reject) => {
+      let user = await db.get.collection(collection.ADMIN_COLLECTIONS).findOne({ email: userdata.email })
+      if (user) {
+        let response = {}
+        response.signupstatus = false
+        resolve({ error: 'Signup failed. Email Already Exists! ' })
+      } else if (userdata.password !== userdata.rpassword) {
+        let response = {}
+        response.signupstatus = false
+        resolve({ error: 'Passwords do not match' })
+      } else {
+        console.log(userdata);
 
-      callback(obj)
-
+        userdata.password = await bcrypt.hash(userdata.password, 10)
+        db.get.collection(collection.ADMIN_COLLECTIONS).insertOne(userdata).then((response) => {
+          response.signupstatus = true
+          response.admin = userdata
+          resolve(response)
+        })
+      }
     })
+  },
+  doAdminLogin: (userdata) => {
+
+    return new Promise(async (resolve, reject) => {
+      let loginStatus = false
+      let response = {}
+      let user = await db.get.collection(collection.ADMIN_COLLECTIONS).findOne({ email: userdata.email })
+      if (user) {
+        bcrypt.compare(userdata.password, user.password).then((status) => {
+          if (status) {
+            console.log("connection established")
+            response.admin = user
+            response.status = true
+            resolve(response)
+          }
+          else {
+            console.log(" connection failed")
+            resolve({ status: false })
+          }
+        })
+
+      }
+      else {
+        console.log("login failed")
+        resolve({ status: false })
+      }
+    })
+  },
+  
+  getAllUsers: () => {
+    return new Promise(async (resolve, reject) => {
+      // console.log(userId)
+      let users = await db.get.collection(collection.USER_COLLECTIONS).find({}).toArray()
+      // userId: new objectID(userId) 
+      // console.log(orders)
+      resolve(users)
+    })
+
   },
   getAllProducts: () => {
     return new Promise(async (resolve, reject) => {
-      let products = await db.get.collection(collection.PRODUCT_COLLECTION).find().toArray()
+      // console.log(userId)
+      let products = await db.get.collection(collection.PRODUCT_COLLECTION).find({}).toArray()
+      // userId: new objectID(userId) 
+      // console.log(orders)
       resolve(products)
     })
+
   },
-  getOwnerProducts: (id) => {
-    return new Promise(async (resolve, reject) => {
-      let products = await db.get.collection(collection.PRODUCT_COLLECTION).find({ ownerId: id }).toArray()
-      resolve(products)
-    })
-  },
-
-  getCategoryProducts: (cat) => {
-    return new Promise(async (resolve, reject) => {
-      let products = await db.get.collection(collection.PRODUCT_COLLECTION).find({ "category": cat }).toArray()
-      resolve(products)
-    })
-  },
-  deleteProduct: (prodId) => {
-    return new Promise((resolve, reject) => {
-      let prId = new objectID(prodId)
-      db.get.collection(collection.PRODUCT_COLLECTION).deleteOne({ _id: prId }).then((response) => {
-        //console.log(response)
-        resolve(response)
-      })
-    })
-  },
-  getProductDetails: (proId) => {
-    return new Promise((resolve, reject) => {
-      let prId = new objectID(proId)
-      db.get.collection(collection.PRODUCT_COLLECTION).findOne({ _id: prId }).then((product) => {
-        resolve(product)
-      })
-    })
-  },
-  UpdateProduct: (proId, proDetails) => {
-    return new Promise((resolve, reject) => {
-
-
-      /*{ Name:proDetails.name,
-          Category:proDetails.category,
-        Description:proDetails.description,
-        Quantity:proDetails.quantity
-      } */
-      console.log(proDetails);
-      let prId = new objectID(proId)
-      db.get.collection(collection.PRODUCT_COLLECTION).updateOne({ _id: prId },
-        {
-          $set: proDetails
-
-        }).then((response) => {
-          resolve()
-        }).catch((error) => {
-          console.error("Error updating product:", error);
-          reject(error);
-        });
-
-
-    });
-  },
-  updateStatus: (ordId, newObj) => {
-    return new Promise((resolve, reject) => {
-
-      let orderId = new objectID(ordId)
-      db.get.collection(collection.ORDER_COLLECTIONS).updateOne({ _id: orderId },
-        {
-          $set: newObj
-
-        }).then((response) => {
-          console.log(response);
-          resolve()
-        }).catch((error) => {
-          console.error("Error updating product:", error);
-          reject(error);
-        });
-
-
-    })
-
-  }
-
-}
+  
+};

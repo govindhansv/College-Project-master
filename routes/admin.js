@@ -13,6 +13,7 @@ var categoryHelper = require('../helpers/category-helpers');
 var storeHelper = require('../helpers/store-helpers');
 
 const adminHelpers = require('../helpers/admin-helpers');
+const userHelpers = require('../helpers/user-helpers');
 
 const verifyLogin = (req, res, next) => {
   if (req.session.admin)
@@ -31,7 +32,7 @@ router.get('/all-products', verifyLogin, function (req, res, next) {
 
   productHelper.getAllProducts().then((products) => {
     console.log(products);
-    res.render('admin/view-products', { admin: true, products, admin });
+    res.render('admin/view-products', { products, admin });
   })
 });
 
@@ -120,10 +121,20 @@ router.get('/delete-product/:id', (req, res) => {
   let proId = req.params.id
   console.log(proId)
   productHelper.deleteProduct(proId).then((response) => {
-    res.redirect('/owner/all-products')
+    res.redirect('/admin/all-products')
   })
 
 })
+
+router.get('/delete-user/:id', (req, res) => {
+  let proId = req.params.id
+  console.log(proId)
+  productHelper.deleteUser(proId).then((response) => {
+    res.redirect('/admin/all-users')
+  })
+
+})
+
 
 router.get('/edit-product/:id', async (req, res) => {
   let product = await productHelper.getProductDetails(req.params.id)
@@ -259,19 +270,21 @@ router.get('/all-orders', async (req, res) => {
   console.log(orders);
   res.render('owner/orders', { user: req.session.owner, orders, owner: true })
 })
+
 router.get('/all-users', async (req, res) => {
   let users = await userHelpers.getAllUsers()
   // let orders = await userHelpers.getAllOrders(req.session.user._id)
-  // console.log(orders);
-  res.render('owner/users', { user: req.session.owner, users, owner: true })
+  // console.log(orders
+  res.render('admin/users', { admin: req.session.admin, users })
 })
 
+
 router.get('/all-products', async (req, res) => {
-  let user = req.session.owner
+  let admin = req.session.admin
 
   productHelper.getAllProducts().then((products) => {
     console.log(products)
-    res.render('owner/view-products', { owner: true, products, user });
+    res.render('admin/view-products', { admin, products });
   })
 })
 
