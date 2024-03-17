@@ -17,6 +17,8 @@ Handlebars.registerHelper('increment', function(value) {
 var UserRouter = require('./routes/user');
 var ownerRouter = require('./routes/owner');
 var devRouter = require('./routes/dev');
+var adminRouter = require('./routes/admin');
+
 
 
 var app = express();
@@ -65,6 +67,8 @@ function fakeSession(req, res, next) {
 app.use('/', UserRouter);
 app.use('/owner', ownerRouter);
 app.use('/dev', devRouter);
+app.use('/admin', adminRouter);
+
 
 
 

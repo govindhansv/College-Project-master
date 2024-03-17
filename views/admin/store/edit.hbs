@@ -1,0 +1,68 @@
+{{!-- <section>
+    <div class="container mt-4">
+        <h2 class="center"></h2>
+        <form action="/owner/edit-category/{{category._id}}" method="POST" enctype="multipart/form-data">
+            <label for="category_name"> Heading:</label><br>
+            <input type="text" id="category_name" name="heading" class="form-control" value="{{owner.heading}}"><br><br>
+
+            <label for="category_name"> Description:</label><br>
+            <input type="text" id="category_name" name="desc" class="form-control" value="{{owner.desc}}"><br><br>
+
+            <label for="category_image">Image:</label><br>
+            <img src="/store-image/{{owner._id}}.jpg" style="width:100px;height:auto;" id="imgview">
+            <input type="file" id="category_image" name="image" class="form-control"
+                onchange="viewImage(event)"><br><br>
+
+            <button type="submit" class="btn btn-success mt-4">SUBMIT</button>
+            <button type="reset" class="btn btn-danger ml-3 mt-4">RESET</button>
+        </form>
+    </div>
+</section> --}}
+
+{{!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"> --}}
+
+<body class="bg-gray-100">
+
+    <form action="/owner/store/profile/edit/" method="post" 
+        class="max-w-md mx-auto p-6 bg-white rounded-md shadow-md mt-10">
+
+        <h2 class="text-2xl font-bold text-center mb-6">EDIT STORE</h2>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="heading">Heading</label>
+            <input type="text" name="heading" value="{{owner.heading}}" id="heading" class="w-full px-3 py-2 border rounded-md" />
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="desc">Description: </label>
+            <input type="text" name="desc" id="desc" value="{{owner.desc}}" class="w-full px-3 py-2 border rounded-md" />
+        </div>
+        {{!-- <div class="mb-4 max-w-lg mx-auto">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="desc">Image: </label>
+            <input type="file" id="category_image" name="image" class="form-control"
+                onchange="viewImage(event)"><br><br>
+            <img src="/store-image/{{owner._id}}.jpg" style="width:100px;height:auto;" id="imgview">
+        </div> --}}
+      
+
+        <!-- Submit button -->
+        <div class="text-center">
+            <button type="submit"
+                class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:border-indigo-300">
+               Update
+            </button>
+        </div>
+
+       
+    </form>
+
+</body>
+
+
+
+<script>
+    function viewImage(event) {
+        document.getElementById('imgview').src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>

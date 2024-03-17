@@ -1,0 +1,45 @@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+<body class="bg-gray-100">
+
+    <form action="/owner/login" method="post" class="max-w-md mx-auto p-6 bg-white rounded-md shadow-md mt-10">
+        {{#if loginErr}}
+        <p class="text-red-500 text-center mb-4">Invalid username or password</p>
+        {{/if}}
+        <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+
+        <!-- Email input -->
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email address</label>
+            <input type="email" name="email" id="email" class="w-full px-3 py-2 border rounded-md" />
+        </div>
+
+        <!-- Password input -->
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+            <input type="password" name="password" id="password" class="w-full px-3 py-2 border rounded-md" />
+        </div>
+
+        <!-- Remember me and Forgot password -->
+        <div class="flex justify-between items-center mb-4">
+            <div class="flex items-center">
+                <input type="checkbox" class="form-checkbox text-indigo-600" id="rememberMe" checked />
+                <label class="ml-2 text-gray-700" for="rememberMe">Remember me</label>
+            </div>
+            <a href="#!" class="text-indigo-600">Forgot password?</a>
+        </div>
+
+        <!-- Submit button -->
+        <div class="text-center">
+            <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:border-indigo-300">
+                Sign in
+            </button>
+        </div>
+
+        <!-- Register link -->
+        <div class="text-center mt-4">
+            <p>Not a member? <a href="/owner/signup" class="text-indigo-600">Register</a></p>
+        </div>
+    </form>
+
+</body>
