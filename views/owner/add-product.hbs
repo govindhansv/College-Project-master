@@ -1,43 +1,84 @@
-<section>
-<div class="container mt-4">
+{{!-- <section>
+  <div class="container mt-4">
     <h2 class="center">ADD PRODUCTS</h2>
     <form action="/owner/add-product" method="POST" enctype="multipart/form-data">
-        <label for="product_name">Product Name:</label><br>
-        <input type="text" id="product_name" name="name" required class="form-control" ><br><br>
+      <label for="product_name">Product Name:</label><br>
+      <input type="text" id="product_name" name="name" required class="form-control"><br><br>
 
-        <label for="category">Category:</label><br>
-        <select id="category" name="category" class="form-control">
-           
-        </select><br><br>
+      <label for="category">Category:</label><br>
+      <select id="category" name="category" class="form-control">
 
-        <label for="Price">Price:</label><br>
-        <input type="number" id="Price" name="Price" class="form-control" ><br><br>
-       <!-- <label for="description">Description:</label><br>
+      </select><br><br>
+
+      <label for="Price">Price:</label><br>
+      <input type="number" id="Price" name="Price" class="form-control"><br><br>
+      <!-- <label for="description">Description:</label><br>
         <input type="text" id="description" name="description" class="form-control" ><br><br>-->
 
-        <label for="quantity">Quantity:</label><br>
-        <input type="number" id="quantity" name="quantity" min="1" class="form-control" required><br><br>
-        <label for="image">Image:</label><br>
-        <input type="file" id="image" name="image" class="form-control"><br><br>
+      <label for="quantity">Quantity:</label><br>
+      <input type="number" id="quantity" name="quantity" min="1" class="form-control" required><br><br>
+      <label for="image">Image:</label><br>
+      <img style="width:100px;height:auto;" id="imgview">
 
-       <button type="submit" class="btn btn-success mt-4">SUBMIT</button>
-       <button type="reset" class="btn btn-danger ml-3 mt-4">RESET</button>
+      <input type="file" onchange="viewImage(event)" id="image" name="image" class="form-control"><br><br>
+
+      <button type="submit" class="btn btn-success mt-4">SUBMIT</button>
+      <button type="reset" class="btn btn-danger ml-3 mt-4">RESET</button>
     </form>
-</div>
+  </div>
+</section> --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+<section class="py-4">
+  <div class="container mx-auto">
+    <h2 class="text-center text-2xl font-bold mb-4">ADD PRODUCTS</h2>
+    <form action="/owner/add-product" method="POST" enctype="multipart/form-data" class="max-w-lg mx-auto">
+      <label for="product_name" class="block">Product Name:</label>
+      <input type="text" id="product_name" name="name" required class="border p-2 form-input w-full mt-2"><br><br>
+
+      <label for="category" class="block">Category:</label>
+      <select id="category" name="category" class="border p-2 form-select w-full mt-2">
+        <!-- Your options here -->
+      </select><br><br>
+
+      <label for="Price" class="block">Price:</label>
+      <input type="number" id="Price" name="Price" class="border p-2 form-input w-full mt-2"><br><br>
+
+      <label for="quantity" class="block">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" min="1" class="border p-2 form-input w-full mt-2" required><br><br>
+
+      <label for="image" class="block">Image:</label>
+      <div class="flex items-center mt-2">
+        <img style="width:100px;height:auto;" id="imgview" class="mr-4">
+        <input type="file" onchange="viewImage(event)" id="image" name="image" class="border p-2 form-input">
+      </div>
+      
+      <div class="mt-4">
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">SUBMIT</button>
+        <button type="reset" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-3">RESET</button>
+      </div>
+    </form>
+  </div>
 </section>
 
 
+<script>
+  function viewImage(event) {
+    document.getElementById('imgview').src = URL.createObjectURL(event.target.files[0]);
+  }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
     // Fetch categories from the API endpoint
-    $.getJSON("/owner/all-categories/names-only", function(data) {
+    $.getJSON("/owner/all-categories/names-only", function (data) {
       // Check if categories are successfully retrieved
       console.log(data)
       if (data && data.categories) {
         // Iterate through each category name and append as an option to the select element
-        data.categories.forEach(function(category) {
+        data.categories.forEach(function (category) {
           $('#category').append($('<option>', {
             value: category,
             text: category

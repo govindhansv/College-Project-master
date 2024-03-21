@@ -31,7 +31,7 @@
             <div class="flex flex-col flex-1 px-3 mt-6">
                 <div class="space-y-4">
                     <nav class="flex-1 space-y-2">
-                         <a href="/owner"
+                        <a href="/owner"
                             class=" flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
                             <svg class="flex-shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -181,36 +181,42 @@
                             {{!-- <div class="row mt-4">
                                 <a href="/owner/add-product" class="btn btn-success ml-auto">Add Product</a>
                             </div> --}}
+                            {{!-- <th>Address</th> --}}
+                            {{!-- <th>Pincode</th> --}}
                             <table id="order-table" class="table mt-5">
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th>
                                         <th>ID</th>
-                                        <th>Address</th>
-                                        <th>Pincode</th>
+
                                         <th>Mobile</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Payment</th>
                                         <th>Status</th>
+                                        <th>Change</th>
+
 
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{!-- <td>{{this.deliveryDetails.address}}</td> --}}
+                                    {{!-- <td>{{this.deliveryDetails.pincode}}</td> --}}
                                     {{#each orders}}
                                     <tr>
                                         <td>{{this.date}}</td>
                                         <td>{{this._id}}</td>
-                                        <td>{{this.deliveryDetails.address}}</td>
-                                        <td>{{this.deliveryDetails.pincode}}</td>
+
                                         <td>{{this.deliveryDetails.moile}}</td>
                                         <td>{{this.totalAmount}}</td>
                                         <td>{{this.paymentMethod}}</td>
-                                        <td>{{this.status}} <br>
-                                            <a class="text-white bg-red-500"
-                                                href="/owner/order/change-status/{{this._id}}">Change To Packed</a>
-                                        </td>
-                                        <td><a href="/view-order-products/{{this._id}}" class="btn btn-primary">View
-                                                Products</a></td>
+                                        <td>{{this.status}} </td>
+
+                                        <td> <a class="mt-2 p-2 rounded text-white bg-red-500"
+                                                href="/owner/order/change-status/{{this._id}}">Change</a></td>
+
+                                        <td><a href="/view-order-products/{{this._id}}"
+                                                class="mt-2 p-2 rounded text-white bg-blue-500">View
+                                            </a></td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
