@@ -1,44 +1,77 @@
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 
-<body class="bg-gray-100">
+<div class="bg-white flex  justify-center w- full items-center"
+    style="background-image: url('/assets/store.jpg');">
 
-    <section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+    <section class="vh-100 w-full bg-image max-w-md m-8">
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                        <div class="card bg-white border-2 border-gray-300 rounded-md p-5">
+                        <div class=" bg-white border-2 border-gray-300 rounded-md p-5 w-full">
                             <h2 class="text-2xl text-center mb-5">Create an account</h2>
 
                             <form action="/owner/signup" method="post">
 
                                 <div class="mb-4">
-                                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Your Name</label>
-                                    <input type="text" name="name" id="name" class="w-full px-3 py-2 border rounded-md" />
+                                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Your
+                                        Name</label>
+                                    <input type="text" name="name" id="name"
+                                        class="w-full px-3 py-2 border rounded-md" />
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Your Email</label>
-                                    <input type="email" name="email" id="email" class="w-full px-3 py-2 border rounded-md" />
+                                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Your
+                                        Email</label>
+                                    <input type="email" name="email" id="email"
+                                        class="w-full px-3 py-2 border rounded-md" />
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                                    <input type="password" name="password" id="password" class="w-full px-3 py-2 border rounded-md" />
+                                    <label for="password"
+                                        class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                                    <input type="password" name="password" id="password"
+                                        class="w-full px-3 py-2 border rounded-md" />
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="rpassword" class="block text-gray-700 text-sm font-bold mb-2">Repeat your password</label>
-                                    <input type="password" name="rpassword" id="rpassword" class="w-full px-3 py-2 border rounded-md" />
+                                    <label for="rpassword" class="block text-gray-700 text-sm font-bold mb-2">Repeat
+                                        your password</label>
+                                    <input type="password" name="rpassword" id="rpassword"
+                                        class="w-full px-3 py-2 border rounded-md" />
                                 </div>
 
-                                <div class="flex items-center mb-5">
-                                    <input type="checkbox" class="form-checkbox text-indigo-600" id="termsAgreement" />
-                                    <label for="termsAgreement" class="ml-2 text-gray-700">I agree all statements in <a href="#!" class="text-indigo-600"><u>Terms of service</u></a></label>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2"
+                                        for="heading">Heading</label>
+                                    <input type="text" name="heading" id="heading"
+                                        class="w-full px-3 py-2 border rounded-md" />
                                 </div>
+
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="heading">Store
+                                        Address</label>
+                                    <textarea type="text" name="address" id="heading"
+                                        class="w-full px-3 py-2 border rounded-md" placeholder="address">
+                                        </textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="desc">Phone No:
+                                    </label>
+                                    <input type="text" name="phone" id="phone"
+                                        class="w-full px-3 py-2 border rounded-md" />
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="desc">Description:
+                                    </label>
+                                    <input type="text" name="desc" id="desc"
+                                        class="w-full px-3 py-2 border rounded-md" />
+                                </div>
+
 
                                 <div class="text-center">
-                                    <input type="submit" value="Register" class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300" />
+                                    <input type="submit" value="Register"
+                                        class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300" />
                                 </div>
                             </form>
                         </div>
@@ -48,4 +81,4 @@
         </div>
     </section>
 
-</body>
+</div>

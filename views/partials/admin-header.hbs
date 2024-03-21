@@ -25,6 +25,13 @@
              
                 {{#if admin}}
             <a href="/admin" title="" class="items-center justify-center hidden px-4 py-3 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700" role="button"> DASHBOARD </a>
+                {{else}}
+                  <a href="/owner/signup" title=""
+                        class="items-center justify-center hidden px-4 py-3 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700"
+                        role="button"> Join As Owner </a>
+                    <a href="/signup" title=""
+                        class="items-center justify-center hidden px-4 py-3 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700"
+                        role="button"> Join As User </a>
                 {{/if}}
             </div>
 
