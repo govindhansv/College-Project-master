@@ -2,7 +2,7 @@
 <div class="flex flex-1 bg-gray-50">
   <div class="hidden md:flex md:w-64 md:flex-col">
     <div class="flex flex-col flex-grow pt-5 overflow-y-auto bg-white">
-     
+
 
       <div class="flex flex-col flex-1 px-3 mt-6">
         <div class="space-y-4">
@@ -36,7 +36,25 @@
               </svg>
               All Users
             </a>
-            
+            <a href="/admin/all-owners"
+              class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+              <svg class="flex-shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              All Owners
+            </a>
+
+             <a href="/admin/all-reviews"
+              class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+              <svg class="flex-shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              All Reviews
+            </a>
             {{!-- <a href="#"
               class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
               <svg class="flex-shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
@@ -113,7 +131,7 @@
             <img class="flex-shrink-0 object-cover w-6 h-6 mr-3 rounded-full"
               src="https://landingfoliocom.imgix.net/store/collection/clarity-dashboard/images/vertical-menu/2/avatar-male.png"
               alt="" />
-           {{owner.name}}
+            {{owner.name}}
             <svg class="w-5 h-5 ml-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
@@ -131,24 +149,29 @@
           <!-- ADD YOUR CONTENT HERE -->
 
 
-          
 
-            <form  class="max-w-md mx-auto p-6 bg-white rounded-md shadow-md mt-10">
-              <h1> Welcome {{ admin.name}} </h1>
 
-              <a href="/logout" title=""
-                class="items-center justify-center hidden px-2 py-3 mt-10 ml-10 text-base font-semibold text-white transition-all duration-200 bg-red-600 border border-transparent rounded-md lg:inline-flex hover:bg-red-700 focus:bg-red-700"
-                role="button"> Log out </a>
+          <form class="max-w-md mx-auto p-6 bg-white rounded-md shadow-md mt-10">
+            <h1> Welcome {{ admin.name}} </h1>
 
-              <a href="/admin/all-users" title=""
-                class="items-center justify-center hidden px-2 py-3 mt-10 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700"
-                role="button"> All Users </a>
+            <a href="/logout" title=""
+              class="items-center justify-center hidden px-2 py-3 mt-10 ml-10 text-base font-semibold text-white transition-all duration-200 bg-red-600 border border-transparent rounded-md lg:inline-flex hover:bg-red-700 focus:bg-red-700"
+              role="button"> Log out </a>
 
-              <a href="/admin/all-products" title=""
-                class="items-center justify-center hidden px-2 py-3 mt-10 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700"
-                role="button"> All Products </a>
+            <a href="/admin/all-users" title=""
+              class="items-center justify-center hidden px-2 py-3 mt-10 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700"
+              role="button"> All Users </a>
 
-            </form>
+            <a href="/admin/all-products" title=""
+              class="items-center justify-center hidden px-2 py-3 mt-10 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700"
+              role="button"> All Products </a>
+            <a href="/admin/all-owners" title=""
+              class="items-center justify-center hidden px-2 py-3 mt-10 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700"
+              role="button"> All Owners </a>
+            <a href="/admin/all-reviews" title=""
+              class="items-center justify-center hidden px-2 py-3 mt-10 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700"
+              role="button"> All Reviews </a>
+          </form>
 
 
 

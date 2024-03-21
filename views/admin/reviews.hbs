@@ -1,14 +1,15 @@
 
  
           <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h2 class="text-2xl font-bold mb-4"> All Users </h2>
+            <h2 class="text-2xl font-bold mb-4"> All Owners </h2>
        
             <table id="products-table" class="table-auto w-full">
               <thead>
                 <tr>
                   <th class="px-4 py-2">#</th>
-                  <th class="px-4 py-2">Product</th>
-                  <th class="px-4 py-2">Category</th>
+                  <th class="px-4 py-2">Name</th>
+                  <th class="px-4 py-2">Email</th>
+                  <th class="px-4 py-2">Review</th>
               
                   <th class="px-4 py-2">Actions</th>
 
@@ -17,16 +18,17 @@
               </thead>
               <tbody>
 
-                {{#each users}}
+                {{#each reviews}}
                 <tr>
                   <td class="border px-4 py-2"> {{ @index }}</td>
-                  <td class="border px-4 py-2">{{this.name}} </td>
-                  <td class="border px-4 py-2">{{this.email}} </td>
+                  <td class="border px-4 py-2">{{this.user.name}} </td>
+                  <td class="border px-4 py-2">{{this.user.email}} </td>
+                  <td class="border px-4 py-2">{{this.review}} </td>
                 
                   <td class="border px-4 py-2">
-                   <a href="/admin/delete-user/{{this._id}}"
+                   <a href="/admin/delete-review/{{this._id}}"
                       class="mb-6 inline-flex justify-center px-3 py-2 text-base font-semibold text-white transition-all duration-200 bg-red-600 border border-transparent rounded-md tems-center hover:bg-red-700 focus:bg-red-700 "
-                      onclick="return confirm('Do you want to delete and block {{this.name}}')">BLOCK</a>
+                      onclick="return confirm('Do you want to delete review of {{this.user.name}}')">Delete</a>
                   </td>
 
 

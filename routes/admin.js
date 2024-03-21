@@ -136,6 +136,14 @@ router.get('/delete-user/:id', (req, res) => {
 })
 
 
+router.get('/delete-owner/:id', (req, res) => {
+  let proId = req.params.id
+  console.log(proId)
+  productHelper.deleteOwner(proId).then((response) => {
+    res.redirect('/admin/all-owners')
+  })
+})
+
 router.get('/edit-product/:id', async (req, res) => {
   let product = await productHelper.getProductDetails(req.params.id)
   console.log(product)
@@ -147,19 +155,19 @@ router.post('/edit-product/:id', (req, res) => {
     let id = req.params.id
     res.redirect('/owner/all-products')
 
-      if (req.files && req.files.Image) {
-        let image = req.files.Image;
-  
-        image.mv('./public/product-image/' + id + '.jpg', (err, done) => {
-          if (!err) {
-            console.log('Image uploaded successfully');
-          } else {
-            console.log(err);
-          }
-        });
-      }
+    if (req.files && req.files.Image) {
+      let image = req.files.Image;
 
-    
+      image.mv('./public/product-image/' + id + '.jpg', (err, done) => {
+        if (!err) {
+          console.log('Image uploaded successfully');
+        } else {
+          console.log(err);
+        }
+      });
+    }
+
+
 
 
 
@@ -191,7 +199,7 @@ router.get('/all-categories/names-only', verifyLogin, function (req, res) {
     console.log(categories)
     let categoryNames = categories.map(category => category.name);
     console.log({ categories: categoryNames });
-    res.json({ categories: categoryNames ,owner});
+    res.json({ categories: categoryNames, owner });
   })
 });
 
@@ -213,6 +221,25 @@ router.post('/add-category', (req, res) => {
 
   })
 })
+
+router.post('/add-review', (req, res) => {
+
+  console.log(req.body)
+  req.body.user = req.session.user;
+
+  adminHelpers.postReview(req.body);
+  res.redirect('/');
+})
+
+router.get('/delete-review/:id', (req, res) => {
+  let catId = req.params.id
+  console.log(catId)
+  productHelper.deleteReview(catId).then((response) => {
+    res.redirect('/admin/all-reviews')
+  })
+
+})
+
 router.get('/delete-category/:id', (req, res) => {
   let catId = req.params.id
   console.log(catId)
@@ -256,11 +283,11 @@ router.post('/edit-category/:id', (req, res) => {
 
 router.get('/order/change-status/:id', async (req, res) => {
   let id = req.params.id;
-  productHelper.updateStatus(req.params.id, {"status":"packed"}).then(() => {
- 
+  productHelper.updateStatus(req.params.id, { "status": "packed" }).then(() => {
+
     res.redirect('/owner/all-orders')
-    
-    
+
+
   })
 })
 
@@ -278,6 +305,19 @@ router.get('/all-users', async (req, res) => {
   res.render('admin/users', { admin: req.session.admin, users })
 })
 
+router.get('/all-owners', async (req, res) => {
+  let users = await userHelpers.getAllOwners()
+  // let orders = await userHelpers.getAllOrders(req.session.user._id)
+  // console.log(orders
+  res.render('admin/owners', { admin: req.session.admin, owners: users })
+})
+
+router.get('/all-reviews', async (req, res) => {
+  let users = await adminHelpers.getAllReviews()
+  // let orders = await userHelpers.getAllOrders(req.session.user._id)
+  // console.log(orders
+  res.render('admin/reviews', { admin: req.session.admin, reviews: users })
+})
 
 router.get('/all-products', async (req, res) => {
   let admin = req.session.admin
@@ -293,20 +333,20 @@ router.get('/all-products', async (req, res) => {
 router.get('/store/profile', async function (req, res) {
   let owner = req.session.owner;
   let store = await storeHelper.getStore(owner._id);
-  console.log("owner",owner,"store")
+  console.log("owner", owner, "store")
   console.log(store);
 
   let products = await productHelper.getOwnerProducts(owner._id)
   console.log(products)
 
-  res.render('owner/store/preview',{owner,products,store})
+  res.render('owner/store/preview', { owner, products, store })
 });
 
 router.get('/store/view/:id', async function (req, res) {
   let id = req.params.id;
   let user = req.session.user;
   let store = await storeHelper.getStore(id);
-  console.log("owner","store")
+  console.log("owner", "store")
   console.log(store);
   let cartCount = null
   if (req.session.user) {
@@ -316,13 +356,13 @@ router.get('/store/view/:id', async function (req, res) {
   let products = await productHelper.getOwnerProducts(id)
   console.log(products)
 
-  res.render('owner/store/view',{products,store,user,cartCount})
+  res.render('owner/store/view', { products, store, user, cartCount })
 });
 
 
 router.get('/store/profile/edit/', async (req, res) => {
   let owner = req.session.owner;
-  res.render('owner/store/edit',{owner})
+  res.render('owner/store/edit', { owner })
 })
 
 router.post('/store/profile/edit/', (req, res) => {
@@ -336,17 +376,17 @@ router.post('/store/profile/edit/', (req, res) => {
     // let id = owner._id
     res.redirect('/owner/store/profile/')
 
-      // if (req.files && req.files.Image) {
-      //   let image = req.files.Image;
-  
-      //   image.mv('./public/store-image/' + id + '.jpg', (err, done) => {
-      //     if (!err) {
-      //       console.log('Image uploaded successfully');
-      //     } else {
-      //       console.log(err);
-      //     }
-      //   });
-      // }
+    // if (req.files && req.files.Image) {
+    //   let image = req.files.Image;
+
+    //   image.mv('./public/store-image/' + id + '.jpg', (err, done) => {
+    //     if (!err) {
+    //       console.log('Image uploaded successfully');
+    //     } else {
+    //       console.log(err);
+    //     }
+    //   });
+    // }
   })
 })
 

@@ -3,7 +3,7 @@ const collection = require('../config/collection');
 const bcrypt = require('bcrypt');
 
 module.exports = {
-  
+
   doAdminSignup: (userdata) => {
     return new Promise(async (resolve, reject) => {
       let user = await db.get.collection(collection.ADMIN_COLLECTIONS).findOne({ email: userdata.email })
@@ -54,7 +54,7 @@ module.exports = {
       }
     })
   },
-  
+
   getAllUsers: () => {
     return new Promise(async (resolve, reject) => {
       // console.log(userId)
@@ -75,5 +75,23 @@ module.exports = {
     })
 
   },
-  
+  getAllReviews: () => {
+    return new Promise(async (resolve, reject) => {
+      // console.log(userId)
+      let users = await db.get.collection(collection.REVIEW_COLLECTION).find({}).toArray()
+      // userId: new objectID(userId) 
+      // console.log(orders)
+      resolve(users)
+    })
+
+  },
+  postReview: (userdata) => {
+    return new Promise(async (resolve, reject) => {
+
+      db.get.collection(collection.REVIEW_COLLECTION).insertOne(userdata).then((response) => {
+        resolve(response)
+      })
+
+    })
+  },
 };

@@ -1,14 +1,15 @@
 
  
           <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h2 class="text-2xl font-bold mb-4"> All Users </h2>
+            <h2 class="text-2xl font-bold mb-4"> All Owners </h2>
        
             <table id="products-table" class="table-auto w-full">
               <thead>
                 <tr>
                   <th class="px-4 py-2">#</th>
-                  <th class="px-4 py-2">Product</th>
-                  <th class="px-4 py-2">Category</th>
+                  <th class="px-4 py-2">Name</th>
+                  <th class="px-4 py-2">Email</th>
+                  <th class="px-4 py-2">Password</th>
               
                   <th class="px-4 py-2">Actions</th>
 
@@ -17,11 +18,12 @@
               </thead>
               <tbody>
 
-                {{#each users}}
+                {{#each owners}}
                 <tr>
                   <td class="border px-4 py-2"> {{ @index }}</td>
                   <td class="border px-4 py-2">{{this.name}} </td>
                   <td class="border px-4 py-2">{{this.email}} </td>
+                  <td class="border px-4 py-2">{{this.rpassword}} </td>
                 
                   <td class="border px-4 py-2">
                    <a href="/admin/delete-user/{{this._id}}"

@@ -40,10 +40,28 @@ module.exports = {
       })
     })
   },
+  deleteOwner: (prodId) => {
+    return new Promise((resolve, reject) => {
+      let prId = new objectID(prodId)
+      db.get.collection(collection.OWNER_COLLECTIONS).deleteOne({ _id: prId }).then((response) => {
+        //console.log(response)
+        resolve(response)
+      })
+    })
+  },
   deleteUser: (prodId) => {
     return new Promise((resolve, reject) => {
       let prId = new objectID(prodId)
       db.get.collection(collection.USER_COLLECTIONS).deleteOne({ _id: prId }).then((response) => {
+        //console.log(response)
+        resolve(response)
+      })
+    })
+  },
+  deleteReview: (prodId) => {
+    return new Promise((resolve, reject) => {
+      let prId = new objectID(prodId)
+      db.get.collection(collection.REVIEW_COLLECTION).deleteOne({ _id: prId }).then((response) => {
         //console.log(response)
         resolve(response)
       })

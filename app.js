@@ -3,13 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var fileupload=require('express-fileupload')
-var db=require('./config/connection')
-var session=require('express-session')
+var fileupload = require('express-fileupload')
+var db = require('./config/connection')
+var session = require('express-session')
 const Handlebars = require('handlebars');
-const nocache=require('nocache')
+const nocache = require('nocache')
 
-Handlebars.registerHelper('increment', function(value) {
+Handlebars.registerHelper('increment', function (value) {
   return value + 1;
 });
 
@@ -28,7 +28,7 @@ const { ObjectId } = require('mongodb');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs',hbs.engine({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials/'}))
+app.engine('hbs', hbs.engine({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layout/', partialsDir: __dirname + '/views/partials/' }))
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -37,8 +37,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileupload());
 app.use(nocache());
-app.use(session({secret:"Key" , resave: false,
-saveUninitialized: true,cookie:{maxAge:600000}}));
+app.use(session({
+  secret: "Key", resave: false,
+  saveUninitialized: true, cookie: { maxAge: 600000 }
+}));
 
 db.connect()
 
@@ -56,7 +58,23 @@ function fakeSession(req, res, next) {
       rpassword: '123',
       loggedIn: true
     }
-    
+    req.session.admin = {
+      _id: new ObjectId("6596cce6fd9c707875b312ed"),
+      name: 'Ramesh',
+      email: 'ramesh@gmail.com',
+      password: '$2b$10$.3gki5iNzzY50p6H7k8wZeUHJf83SJfTrW0v8UjGzzBCfQTV2h23G',
+      rpassword: '123',
+      loggedIn: true
+    }
+    req.session.user = {
+      _id: new ObjectId("65f848e7a085bf974e8c38e8"),
+      name: 'amala',
+      email: 'amala@gmail.com',
+      password: '$2b$10$ORgMQcrI/6LcwQhRBsp1seK.9blZdLhh/psVYq1voZutJYkBO/VGO',
+      rpassword: '123',
+      loggedIn: true
+    }
+
   }
   next();
 }
@@ -74,12 +92,12 @@ app.use('/admin', adminRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

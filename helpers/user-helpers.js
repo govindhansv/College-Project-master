@@ -340,6 +340,16 @@ module.exports = {
     })
 
   },
+  getAllOwners: () => {
+    return new Promise(async (resolve, reject) => {
+      // console.log(userId)
+      let orders = await db.get.collection(collection.OWNER_COLLECTIONS).find({}).toArray()
+      // userId: new objectID(userId) 
+      // console.log(orders)
+      resolve(orders)
+    })
+
+  },
   getAllProducts: () => {
     return new Promise(async (resolve, reject) => {
       // console.log(userId)
