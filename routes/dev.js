@@ -6,7 +6,7 @@ var db = require('../config/connection')
 
 /* GET home page. */
 router.get('/health', async function (req, res, next) {
-    res.send({"status":"working"});
+    res.status(200)
 });
 
 router.get('/db/clean', async function (req, res, next) {
